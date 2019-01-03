@@ -1,4 +1,5 @@
 from restaurants.models import Restaurant
+from rest_framework.filters import SearchFilter,OrderingFilter
 from rest_framework.generics import (
     ListAPIView,
     RetrieveAPIView,
@@ -18,6 +19,8 @@ class RestaurantListView(ListAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantListSerializer
     permission_classes = [AllowAny,]
+    filter_backends = [SearchFilter,OrderingFilter,]
+    search_fields = ['name', 'description',]
 
 
 class RestaurantDetailView(RetrieveAPIView):
